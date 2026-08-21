@@ -135,19 +135,27 @@ import Base from '../layouts/Base.astro';
             <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px">
               <span class="badge" id="dlVersion">versión…</span>
               <span class="badge" id="dlDate" style="color:var(--text-dim)">fecha…</span>
-              <span class="badge" style="color:var(--text-dim)">arm64-v8a • universal</span>
+              <span class="badge" style="color:var(--text-dim)">Android: arm64-v8a • universal</span>
+              <span class="badge" style="color:var(--text-dim)">Windows: MSI x64</span>
             </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:260px">
-            <a id="dlPrimary" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-primary" style="justify-content:center">Descargar APK</a>
+          <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:280px">
+            <a id="dlPrimary" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-primary" style="justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
+              Descargar para Android
+            </a>
+            <a id="dlWindowsCard" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-outline" style="justify-content:center; display:none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
+              Descargar para Windows
+            </a>
             <a href="https://github.com/sebastianl1/souphra-releases/releases" style="text-align:center; font-size:14px; color:var(--muted); text-decoration:none">Ver todas las releases →</a>
           </div>
         </div>
       </div>
     </div>
     <div style="margin-top:32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; font-size:14px">
-      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">1</span><h3 style="margin:16px 0 0">Descarga</h3><p style="margin:8px 0 0;color:var(--muted)">Toca Descargar APK. Si el asset está disponible, baja directo; si no, abre la página del release.</p></div>
-      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">2</span><h3 style="margin:16px 0 0">Permite instalación</h3><p style="margin:8px 0 0;color:var(--muted)">Android → “Instalar apps desconocidas” para el navegador/administrador.</p></div>
+      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">1</span><h3 style="margin:16px 0 0">Descarga</h3><p style="margin:8px 0 0;color:var(--muted)">Android: toca <strong style="color:#fff">Descargar para Android</strong> (APK). Windows: usa <strong style="color:#fff">Descargar para Windows</strong> (instalador MSI).</p></div>
+      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">2</span><h3 style="margin:16px 0 0">Instala</h3><p style="margin:8px 0 0;color:var(--muted)">Android: permite “apps desconocidas” para el navegador. Windows: ejecuta el MSI (SmartScreen → “Ejecutar de todas formas”).</p></div>
       <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;font-weight:700">3</span><h3 style="margin:16px 0 0">Actualización forzada</h3><p style="margin:8px 0 0;color:var(--muted)">Cuando haya versión nueva verás notificación y diálogo bloqueante hasta instalar.</p></div>
     </div>
   </section>
@@ -188,11 +196,13 @@ import Base from '../layouts/Base.astro';
         const tag = j.tag_name || j.name || '—';
         const date = j.published_at ? new Date(j.published_at).toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
         const apk = (j.assets || []).find(a => a.name && a.name.endsWith('.apk')) || j.assets?.[0];
+        const msi = (j.assets || []).find(a => a.name && a.name.endsWith('.msi'));
         el('latestTag').textContent = tag;
         el('dlVersion').textContent = tag;
         el('dlDate').textContent = date;
         const url = apk ? apk.browser_download_url : j.html_url;
         if (url) { el('dlPrimary').href = url; el('heroDownload').href = url; el('navDownload').href = url; }
+        if (msi) { el('dlWindows').href = msi.browser_download_url; el('dlWindowsCard').style.display = ''; }
       } catch (e) {
         el('latestTag').textContent = 'sin releases aún';
         el('dlVersion').textContent = 'próximamente';
