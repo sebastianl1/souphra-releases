@@ -1,56 +1,66 @@
-# Souphra — Descargas
+# Souphra
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sebastianl1/souphra/main/composeApp/src/commonMain/composeResources/drawable/mono.xml" width="120" alt="Souphra Logo" onerror="this.style.display='none'"/>
+  <img src="https://via.placeholder.com/120x120/FF5A5A/FFFFFF?text=S" width="100" alt="Souphra" style="border-radius:24px"/>
 </p>
 
 <p align="center">
-  <strong>Reproductor de música privado para Android — una experiencia enfocada, rápida y sin anuncios.</strong><br/>
-  Fork privado de SimpMusic, rediseñado para Colombia y para compartir entre amigos.
+  <strong>Música sin interrupciones — radio colombiana, biblioteca y reproducción continua.</strong><br/>
+  Una app privada, rápida y sin anuncios, hecha para compartir entre amigos.
 </p>
 
 <p align="center">
-  <a href="https://sebastianl1.github.io/souphra-releases/"><img src="https://img.shields.io/badge/Web-Souphra-FF5A5A?style=for-the-badge" alt="Web"/></a>
-  <a href="https://github.com/sebastianl1/souphra-releases/releases"><img src="https://img.shields.io/github/v/release/sebastianl1/souphra-releases?label=última%20versión&color=FF5A5A&style=for-the-badge" alt="Release"/></a>
-  <a href="https://github.com/sebastianl1/souphra"><img src="https://img.shields.io/badge/Código-Privado-121212?style=for-the-badge" alt="Privado"/></a>
+  <a href="https://sebastianl1.github.io/souphra-releases/"><img src="https://img.shields.io/badge/Web_Souphra-FF5A5A?style=for-the-badge&logo=safari&logoColor=white" alt="Web"/></a>
+  <a href="https://github.com/sebastianl1/souphra-releases/releases"><img src="https://img.shields.io/github/v/release/sebastianl1/souphra-releases?label=Descargar&color=FF5A5A&style=for-the-badge&logo=android" alt="Release"/></a>
+  <a href="#legal"><img src="https://img.shields.io/badge/Uso-Gratis-00C853?style=for-the-badge" alt="Gratis"/></a>
+</p>
+
+<p align="center">
+  <a href="#-descarga">Descargar</a> •
+  <a href="https://sebastianl1.github.io/souphra-releases/">Web</a> •
+  <a href="#-características">Características</a> •
+  <a href="#-legal">Legal</a>
 </p>
 
 ---
 
 ## 📥 Descarga
 
-> **Siempre instala la última versión.** La app te avisará automáticamente cuando haya una actualización y te obligará a actualizar (no te quedarás atrás).
-
-| Canal | Enlace |
-|-------|--------|
-| **Última APK (recomendado)** | [Descargar APK — GitHub Releases](https://github.com/sebastianl1/souphra-releases/releases/latest) |
+| Acción | Enlace |
+|--------|--------|
+| **Última APK** | [**Releases → Descargar APK**](https://github.com/sebastianl1/souphra-releases/releases/latest) |
 | **Web oficial** | [sebastianl1.github.io/souphra-releases](https://sebastianl1.github.io/souphra-releases/) |
-| **Código fuente** | Privado en [`sebastianl1/souphra`](https://github.com/sebastianl1/souphra) |
+| **Soporte** | Abre un *Issue* en este repo o escribe a `sebasbele12@gmail.com` |
 
-### Instalación
+### Instalación en 3 pasos
 
-1. Descarga el APK desde **Releases** (archivo `souphra-*.apk`).
-2. En Android, permite **“Instalar apps desconocidas”** para el navegador/administrador de archivos.
-3. Abre el APK y toca **Instalar**.
-4. ¡Listo! La app te notificará cada 24 h si hay una versión nueva.
+1. **Descarga** el archivo `souphra-*.apk` desde **Releases** (elige `arm64-v8a` para la mayoría de móviles).
+2. **Permite** “Instalar apps desconocidas” cuando Android te lo pida (solo para el navegador).
+3. **Instala** y abre — la app te avisará cada 24 h si hay una versión nueva y te pedirá actualizar.
 
-> **Nota para amigos:** si ves el diálogo **“Actualización disponible”** a pantalla completa, toca **Descargar** — se descargará automáticamente y si falla, se abrirá el navegador en la página del release.
+> **Actualización automática:** la app comprueba `api.github.com/repos/sebastianl1/souphra-releases/releases/latest` cada 24 h. Si hay un tag mayor que tu `versionName`, verás una **notificación** y un **diálogo bloqueante** con botón **Descargar** (descarga directa del asset `.apk` si está disponible, si no abre el navegador en la página del release).
 
 ---
 
 ## ✨ Características
 
-- **Radio en vivo** — 27 emisoras colombianas verificadas (Caracol, W Radio, Olímpica, Tropicana, La Mega, etc.) con reconexión seamless.
-- **Biblioteca y listas** — importa playlists, gestiona tu música, historial y favoritos.
-- **Reproducción avanzada** — crossfade, cola infinita, letras sincronizadas (LRCLIB/BetterLyrics/YouTube), SponsorBlock, normalización y salto de silencios.
-- **Interfaz cuidada** — tema oscuro con semillas personalizables, barra inferior negra con partículas animadas, navegación fluida con transiciones corregidas.
-- **Actualizaciones forzadas** — la app comprueba cada 24 h en `sebastianl1/souphra-releases` y te obliga a actualizar; no necesitas que te reenvíen la APK.
+| Área | Qué hace |
+|------|----------|
+| **Radio en vivo** | 27 emisoras colombianas verificadas (Caracol, W, Olímpica, Tropicana, La Mega, Radioacktiva…) con reconexión seamless sin loops |
+| **Biblioteca** | Listas, historial, favoritos, importación de playlists, descargas offline |
+| **Reproducción** | Crossfade, cola infinita, SponsorBlock, letras LRCLIB/BetterLyrics/YouTube, normalización, salto de silencios |
+| **Interfaz** | Tema oscuro, barra negra con partículas animadas, navegación con transiciones corregidas, hub de ajustes categorizado |
+| **Actualizaciones** | Notificación cada 24 h + diálogo que **obliga** a instalar (no más reenvíos de APK) |
+
+### Colores y símbolo
+
+- **Primario:** `#FF5A5A` (rojo vibrante)
+- **Fondo:** `#121212` (negro) / `#1A1A1A` (surface)
+- **Símbolo:** `S` en círculo con fondo `#FF5A5A` — usado en launcher y web
 
 ---
 
-## 🎨 Capturas
-
-> _Próximamente — la web incluye una galería interactiva._
+## 📸 Capturas
 
 | Inicio | Radio | Biblioteca |
 |--------|-------|------------|
@@ -58,47 +68,33 @@
 
 ---
 
-## 🛠️ Stack técnico
+## 🛠️ Detalles técnicos
 
-- **Kotlin Multiplatform + Compose** — Android (principal), Desktop (JVM) y iOS (en progreso)
-- **Media3 ExoPlayer** con `ReconnectingDataSource` para radio continua
-- **Ktor + Coil + Room** — red, imágenes y persistencia
-- **Koin + DataStore + WorkManager** — inyección, preferencias y tareas periódicas
-
----
-
-## 📦 Releases
-
-Los APK se publican aquí, no en el repo privado. Cada release contiene:
-
-- `souphra-<version>-arm64-v8a.apk` y `souphra-<version>-universal.apk`
-- Changelog y notas de la versión
-- Fecha y tag semántico (`v1.2.0`, etc.)
-
-La app compara `VersionManager.getVersionName()` con `tagName` del último release en `api.github.com/repos/sebastianl1/souphra-releases/releases/latest` (fallback si el privado falla) y muestra notificación + diálogo bloqueante.
+- **Stack:** Kotlin Multiplatform + Compose, Media3 ExoPlayer, Ktor, Coil, Room, Koin, DataStore, WorkManager
+- **Mínimo:** Android 8.0 (API 26) • **Arquitecturas:** `arm64-v8a` y `universal`
+- **Releases:** cada tag `vX.Y.Z` publica APKs en este repo; la web hace `fetch` del último release para el botón principal
 
 ---
 
-## 🌐 Web
+## ⚖️ Legal
 
-La web promocional vive en este mismo repo y se despliega vía **GitHub Pages + Actions** (`main` → `gh-pages`):
+**Souphra es totalmente gratuita y de uso libre.**
 
-- **URL:** https://sebastianl1.github.io/souphra-releases/
-- **Fuente:** `index.html` + `assets/` en la raíz
-- **Workflow:** `.github/workflows/pages.yml` (deploy on push a `main`)
+- **No se cobra** por la app, ni por descargas, ni por funciones. No hay compras internas, suscripciones ni anuncios.
+- **Uso personal y para compartir entre amigos.** Puedes instalarla en tus dispositivos y compartir la APK con quien quieras.
+- **Respeto a derechos:** la app reproduce contenido disponible públicamente (YouTube Music / streams de radio). No aloja música ni elude DRM. El uso debe respetar los términos de las fuentes originales.
+- **Sin garantías:** se entrega “tal cual”, sin garantías de disponibilidad continua de streams de terceros.
+- **Privacidad:** no se recopilan datos personales más allá de lo necesario para reproducir y notificar actualizaciones. No se vende información.
 
----
-
-## 🤝 Para amigos
-
-Este es un proyecto **privado y sin fines de lucro**. Si tienes la APK, ya eres parte. Cuando veas la notificación de actualización, instala y listo — sin reenvíos.
+Si eres titular de derechos y consideras que algún stream debe retirarse, abre un Issue y se revisará de inmediato.
 
 ---
 
-## 📄 Licencia
+## 📄 Licencia y créditos
 
-Código del repo privado: privado. Assets y web de este repo de releases: MIT.
+- **App y web de este repo:** MIT — puedes usar, compartir y modificar libremente este repo de releases y su web.
+- Basado en el ecosistema de SimpMusic y librerías open source listadas en la app (ver **Ajustes → Acerca de → Versión** en builds previos).
 
 ---
 
-<p align="center">Hecho con ♥ en Colombia — <code>#FF5A5A</code></p>
+<p align="center"><strong>Hecho con ♥ en Colombia</strong> — <code>#FF5A5A</code> sobre <code>#121212</code></p>
