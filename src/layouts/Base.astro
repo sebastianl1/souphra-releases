@@ -5,7 +5,7 @@ interface Props {
   title?: string;
   description?: string;
 }
-const { title = 'Souphra — Música sin interrupciones', description = 'Radio colombiana en vivo, biblioteca, crossfade y letras. App privada, gratuita y siempre actualizada.' } = Astro.props;
+const { title = 'Ψ Souphra — Música sin interrupciones', description = 'Radio colombiana en vivo, biblioteca, crossfade y letras. Gratis, sin anuncios, siempre actualizada.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,9 +18,12 @@ const { title = 'Souphra — Música sin interrupciones', description = 'Radio c
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sebastianl1.github.io/souphra-releases/" />
-    <meta name="theme-color" content="#FF5A5A" />
+    <meta name="theme-color" content="#7a0a0a" />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/souphra-releases/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Unbounded:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <slot />
