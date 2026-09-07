@@ -4,6 +4,7 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  path?: string;
 }
 
 const SITE_URL = 'https://sebastianl1.github.io/souphra-releases';
@@ -11,7 +12,10 @@ const SITE_URL = 'https://sebastianl1.github.io/souphra-releases';
 const {
   title = 'Souphra — Radio colombiana en vivo, música y letras sincronizadas',
   description = 'App gratuita para Android y Windows: emisoras colombianas en vivo, tu biblioteca, transiciones suaves y letras sincronizadas. Sin anuncios, sin cobros y sin rastreo.',
+  path = '/',
 } = Astro.props;
+
+const canonical = SITE_URL + path;
 
 const faq = [
   {
@@ -78,7 +82,7 @@ const jsonLd = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={SITE_URL + '/'} />
+    <link rel="canonical" href={canonical} />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Souphra" />
     <meta name="theme-color" content="#4a0409" />
@@ -88,7 +92,7 @@ const jsonLd = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={SITE_URL + '/'} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={SITE_URL + '/og.png'} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
