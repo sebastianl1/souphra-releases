@@ -64,6 +64,9 @@ a { color: inherit; }
 .section-pad { padding: 96px 0; }
 @media (max-width: 768px) { .section-pad { padding: 64px 0; } }
 
+/* Evita que el nav sticky tape las secciones al navegar por anclas */
+section[id] { scroll-margin-top: 84px; }
+
 .grid-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -297,6 +300,7 @@ nav .inner { height: 64px; display: flex; align-items: center; justify-content: 
 .marquee-track span { display: inline-flex; align-items: center; gap: 48px; }
 .marquee-track i { font-style: normal; color: rgba(224, 30, 47, 0.5); }
 @keyframes marquee { to { transform: translateX(-50%); } }
+.marquee:hover .marquee-track { animation-play-state: paused; }
 
 /* ---------- Reveal on scroll ---------- */
 .reveal {
@@ -383,4 +387,13 @@ nav .inner { height: 64px; display: flex; align-items: center; justify-content: 
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------- Footer ---------- */
+footer a { position: relative; transition: color 0.15s; }
+footer a:hover { color: #fff; }
+footer a:not(:last-child)::after {
+  content: '·';
+  position: absolute; right: -12px;
+  color: rgba(224, 30, 47, 0.4);
 }
