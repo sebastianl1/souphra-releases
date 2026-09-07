@@ -5,25 +5,110 @@ interface Props {
   title?: string;
   description?: string;
 }
-const { title = 'Ψ Souphra — Música sin interrupciones', description = 'Radio colombiana en vivo, biblioteca, crossfade y letras. Gratis, sin anuncios, siempre actualizada.' } = Astro.props;
+
+const SITE_URL = 'https://sebastianl1.github.io/souphra-releases';
+
+const {
+  title = 'Souphra — Radio colombiana en vivo, música y letras sincronizadas',
+  description = 'App gratuita para Android y Windows: emisoras colombianas en vivo, tu biblioteca, transiciones suaves y letras sincronizadas. Sin anuncios, sin cobros y sin rastreo.',
+} = Astro.props;
+
+const faq = [
+  {
+    q: '¿Souphra es realmente gratis?',
+    a: 'Sí. No se cobra por la app, ni por descargarla, ni por ninguna función. Tampoco hay anuncios, suscripciones ni compras dentro de la app.',
+  },
+  {
+    q: '¿En qué dispositivos funciona?',
+    a: 'En Android (APK para arm64-v8a y universal) y en Windows (instalador MSI de 64 bits). Ambas versiones se publican en GitHub Releases.',
+  },
+  {
+    q: '¿Cómo se actualiza la app?',
+    a: 'Cada 24 horas Souphra revisa si hay una versión nueva. Si existe, te muestra una notificación y un aviso para actualizar con descarga directa.',
+  },
+  {
+    q: '¿De dónde viene la música?',
+    a: 'La app reproduce contenido disponible públicamente: streams de emisoras colombianas y catálogos de música en línea. Souphra no aloja ni distribuye archivos de música.',
+  },
+  {
+    q: '¿Recopila mis datos?',
+    a: 'No. Solo se usa lo mínimo necesario para reproducir contenido y avisarte de actualizaciones. No se vende ni comparte información personal.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Souphra',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Android, Windows',
+    url: SITE_URL + '/',
+    image: SITE_URL + '/logo.svg',
+    description,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'Souphra', url: 'https://github.com/sebastianl1' },
+    featureList:
+      'Radio colombiana en vivo, biblioteca musical, crossfade, letras sincronizadas, actualizaciones automáticas',
+    inLanguage: 'es-419',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Souphra',
+    url: SITE_URL + '/',
+    inLanguage: 'es-419',
+  },
+];
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-419">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={SITE_URL + '/'} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Souphra" />
+    <meta name="theme-color" content="#4a0409" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Souphra" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sebastianl1.github.io/souphra-releases/" />
-    <meta name="theme-color" content="#7a0a0a" />
-    <title>{title}</title>
+    <meta property="og:url" content={SITE_URL + '/'} />
+    <meta property="og:image" content={SITE_URL + '/logo.svg'} />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={SITE_URL + '/logo.svg'} />
+
+    <!-- Datos estructurados -->
+    {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+
     <link rel="icon" type="image/svg+xml" href="/souphra-releases/logo.svg" />
+    <link rel="apple-touch-icon" href="/souphra-releases/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Unbounded:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Unbounded:wght@700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <slot />
