@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { carteras, BUYMEACOFFEE_URL, SPONSORS_URL } from '../data/donations';
 
 const RELEASES_URL = 'https://github.com/sebastianl1/souphra-releases/releases/latest';
-const volver = import.meta.env.BASE_URL;
+const volver = (import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/');
 ---
 
 <Base
