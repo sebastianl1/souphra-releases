@@ -345,8 +345,6 @@ nav .inner { gap: 10px; }
 .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 @media (max-width: 640px) {
   nav .btn-sm { padding: 9px 14px; font-size: 13px; gap: 6px; }
-  .hide-sm-text { font-size: 0; padding: 9px 12px; }
-  .hide-sm-text::before { content: '⬇'; font-size: 15px; }
 }
 
 /* ---------- Donaciones ---------- */

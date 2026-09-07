@@ -5,7 +5,6 @@ import { carteras, BUYMEACOFFEE_URL, SPONSORS_URL } from '../data/donations';
 const RELEASES_URL = 'https://github.com/sebastianl1/souphra-releases/releases/latest';
 const RELEASES_ALL = 'https://github.com/sebastianl1/souphra-releases/releases';
 const ISSUES_URL = 'https://github.com/sebastianl1/souphra-releases/issues';
-const DONAR_URL = (import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/') + 'donar/';
 
 const estaciones = [
   'Caracol Radio', 'W Radio', 'Olímpica Stereo', 'Tropicana',
@@ -99,8 +98,8 @@ const preguntas = [
         <a href="#preguntas">Preguntas</a>
       </div>
       <div class="nav-actions">
-        <a href={DONAR_URL} target="_blank" rel="noopener noreferrer" class="btn btn-donate btn-sm" title="Apoya el proyecto (abre en pestaña nueva)">☕ Donar</a>
-        <a id="navDownload" href={RELEASES_URL} class="btn btn-primary btn-sm hide-sm-text">Descargar</a>
+        <a href="#donar" class="btn btn-donate btn-sm" title="Apoya el proyecto">☕ Donar</a>
+        <a id="navDownload" href={RELEASES_URL} class="btn btn-primary btn-sm">Descargar</a>
       </div>
     </div>
   </nav>
@@ -126,7 +125,7 @@ const preguntas = [
               Descargar para Android
             </a>
             <a href="#funciones" class="btn btn-outline">Explorar funciones</a>
-            <a href={DONAR_URL} target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color:rgba(224,30,47,.35)">☕ Donar</a>
+            <a href="#donar" class="btn btn-outline" style="border-color:rgba(224,30,47,.35)">☕ Donar</a>
           </div>
           <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:10px">
             <span class="badge badge-neutral" id="latestTag" style="color:var(--text-dim)">Consultando versión…</span>
