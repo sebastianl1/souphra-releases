@@ -5,6 +5,13 @@ const RELEASES_URL = 'https://github.com/sebastianl1/souphra-releases/releases/l
 const RELEASES_ALL = 'https://github.com/sebastianl1/souphra-releases/releases';
 const ISSUES_URL = 'https://github.com/sebastianl1/souphra-releases/issues';
 
+/* Billeteras para donaciones en cripto. Dirección vacía = se muestra "Muy pronto". */
+const carteras: Record<string, string> = {
+  'Bitcoin (BTC)': '',
+  'Ethereum (ETH)': '',
+  'USDT (TRC-20)': '',
+};
+
 const estaciones = [
   'Caracol Radio', 'W Radio', 'Olímpica Stereo', 'Tropicana',
   'La Mega', 'Blu Radio', 'Radioacktiva', 'y muchas más',
@@ -95,6 +102,7 @@ const preguntas = [
         <a href="#radio">Radio</a>
         <a href="#descarga">Descargar</a>
         <a href="#preguntas">Preguntas</a>
+        <a href="#donar">Donar</a>
       </div>
       <a id="navDownload" href={RELEASES_URL} class="btn btn-primary btn-sm">Descargar</a>
     </div>
@@ -121,6 +129,7 @@ const preguntas = [
               Descargar para Android
             </a>
             <a href="#funciones" class="btn btn-outline">Explorar funciones</a>
+            <a href="#donar" class="btn btn-outline" style="border-color:rgba(224,30,47,.35)">☕ Donar</a>
           </div>
           <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:10px">
             <span class="badge badge-neutral" id="latestTag" style="color:var(--text-dim)">Consultando versión…</span>
@@ -266,6 +275,87 @@ const preguntas = [
             </div>
           </div>
         ))}
+      </div>
+    </section>
+
+    <!-- ============ DONAR ============ -->
+    <section id="donar" style="background:linear-gradient(180deg,#0a0203,#060203); border-block:1px solid var(--line)">
+      <div class="container section-pad">
+        <div class="reveal" style="text-align:center; max-width:640px; margin:0 auto">
+          <p class="eyebrow" style="margin:0">Apoya el proyecto</p>
+          <h2 class="section-title" style="margin:10px 0 0">Invítanos a un café ☕</h2>
+          <p style="margin:14px 0 0; color:var(--muted); line-height:1.65">
+            Souphra es y siempre será gratuita. Si te gusta la app y quieres colaborar con el
+            mantenimiento de los servidores y las actualizaciones, cualquier aporte ayuda muchísimo.
+          </p>
+        </div>
+
+        <div class="donate-grid" style="margin-top:44px">
+          <!-- Buy Me a Coffee -->
+          <article class="card donate-card reveal reveal-d1">
+            <div class="donate-icon" style="background:linear-gradient(180deg,#ffdd00,#f5a623); color:#3d0206" aria-hidden="true">☕</div>
+            <h3 style="margin:18px 0 0; font-size:19px">Buy Me a Coffee</h3>
+            <p style="margin:8px 0 0; font-size:14px; color:var(--muted); line-height:1.65">
+              La forma más rápida de apoyar el proyecto, con tarjeta o desde tu app favorita.
+            </p>
+            <a
+              href="https://buymeacoffee.com/sebasbele1c"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-sm"
+              style="justify-content:center; margin-top:20px"
+            >
+              Invitar un café
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </article>
+
+          <!-- GitHub Sponsors -->
+          <article class="card donate-card reveal reveal-d2">
+            <div class="donate-icon" style="background:linear-gradient(180deg,#f78166,#c9515c); color:#1a0406" aria-hidden="true">♥</div>
+            <h3 style="margin:18px 0 0; font-size:19px">GitHub Sponsors</h3>
+            <p style="margin:8px 0 0; font-size:14px; color:var(--muted); line-height:1.65">
+              Apoya con un patrocinio directo desde GitHub, ideal si ya tienes una cuenta.
+            </p>
+            <a
+              href="https://github.com/sponsors/sebastianl1"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline btn-sm"
+              style="justify-content:center; margin-top:20px"
+            >
+              Patrocinar en GitHub
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </article>
+
+          <!-- Criptomonedas -->
+          <article class="card donate-card reveal reveal-d3">
+            <div class="donate-icon" style="background:linear-gradient(180deg,#ff8a91,#b3121f); color:#fff" aria-hidden="true">₿</div>
+            <h3 style="margin:18px 0 0; font-size:19px">Criptomonedas</h3>
+            <p style="margin:8px 0 0; font-size:14px; color:var(--muted); line-height:1.65">
+              Si prefieres cripto, copia la dirección de la red que uses:
+            </p>
+            <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
+              {Object.entries(carteras).map(([red, direccion]) => (
+                <div class="wallet-row">
+                  <span class="wallet-net">{red}</span>
+                  {direccion ? (
+                    <button type="button" class="copy-btn" data-copy={direccion} aria-label={`Copiar dirección ${red}`}>
+                      Copiar
+                    </button>
+                  ) : (
+                    <span class="wallet-soon">Muy pronto</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <p class="reveal" style="text-align:center; margin:28px 0 0; font-size:13px; color:var(--text-dim)">
+          La app nunca pedirá dinero dentro de la aplicación. Las donaciones son 100 % voluntarias. 💚
+        </p>
       </div>
     </section>
 
@@ -428,6 +518,32 @@ const preguntas = [
       } else {
         reveals.forEach(function (el) { el.classList.add('visible'); });
       }
+
+      /* ---- Copiar billeteras ---- */
+      document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var texto = btn.getAttribute('data-copy') || '';
+          var restaurar = function () {
+            btn.textContent = 'Copiado ✓';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copiar';
+              btn.classList.remove('copied');
+            }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(texto).then(restaurar);
+          } else {
+            var tmp = document.createElement('textarea');
+            tmp.value = texto;
+            document.body.appendChild(tmp);
+            tmp.select();
+            document.execCommand('copy');
+            document.body.removeChild(tmp);
+            restaurar();
+          }
+        });
+      });
 
       /* ---- Versión y enlaces de descarga desde GitHub ---- */
       function el(id) { return document.getElementById(id); }

@@ -332,6 +332,50 @@ nav .inner { height: 64px; display: flex; align-items: center; justify-content: 
   background: #ff4d5a; box-shadow: 0 0 8px rgba(255, 77, 90, 0.7);
 }
 
+/* ---------- Donaciones ---------- */
+.donate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 900px) { .donate-grid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; } }
+
+.donate-card { display: flex; flex-direction: column; }
+.donate-card .btn { width: 100%; margin-top: auto; }
+.donate-card p { flex-grow: 1; }
+
+.donate-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: grid; place-items: center;
+  font-size: 22px; font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.wallet-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 13px;
+}
+.wallet-net { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
+.wallet-soon {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.copy-btn {
+  padding: 7px 14px; border-radius: 999px; border: none; cursor: pointer;
+  background: linear-gradient(180deg, #ff4d5a, #b3121f);
+  color: #fff; font-weight: 700; font-size: 12px;
+  transition: filter 0.15s, transform 0.12s;
+  white-space: nowrap;
+}
+.copy-btn:hover { filter: brightness(1.12); }
+.copy-btn:active { transform: scale(0.96); }
+.copy-btn.copied { background: linear-gradient(180deg, #2fbf71, #1d8a4e); }
+
 /* ---------- FAQ ---------- */
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary {
