@@ -1,214 +1,456 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const RELEASES_URL = 'https://github.com/sebastianl1/souphra-releases/releases/latest';
+const RELEASES_ALL = 'https://github.com/sebastianl1/souphra-releases/releases';
+const ISSUES_URL = 'https://github.com/sebastianl1/souphra-releases/issues';
+
+const estaciones = [
+  'Caracol Radio', 'W Radio', 'Olímpica Stereo', 'Tropicana',
+  'La Mega', 'Blu Radio', 'Radioacktiva', 'y muchas más',
+];
+
+const funciones = [
+  {
+    icono: '◉',
+    titulo: 'Radio sin cortes',
+    texto: 'Más de 27 emisoras colombianas verificadas, con reconexión automática para que la música nunca se detenga.',
+  },
+  {
+    icono: '♬',
+    titulo: 'Reproducción profesional',
+    texto: 'Crossfade entre canciones, cola sin límites, letras sincronizadas en tiempo real y volumen uniforme.',
+  },
+  {
+    icono: '✦',
+    titulo: 'Diseño que se siente',
+    texto: 'Interfaz oscura con partículas en vivo, transiciones fluidas y controles pensados para usar con una sola mano.',
+  },
+  {
+    icono: '⟳',
+    titulo: 'Siempre al día',
+    texto: 'La app revisa si hay versión nueva cada 24 horas y te guía para actualizar en un par de toques.',
+  },
+  {
+    icono: '◎',
+    titulo: 'Navegación estable',
+    texto: 'Cada pantalla está completa y probada: nada de secciones a medias ni comportamientos erráticos.',
+  },
+  {
+    icono: '♡',
+    titulo: 'Gratis y privada',
+    texto: 'Sin anuncios, sin cobros y sin rastreo. Una app para compartir con amigos, tal cual.',
+  },
+];
+
+const pasos = [
+  {
+    titulo: 'Descarga',
+    texto: 'En Android toca "Descargar para Android" y obtén el APK. En Windows usa "Descargar para Windows" para el instalador MSI.',
+  },
+  {
+    titulo: 'Instala',
+    texto: 'Android: permite "apps desconocidas" para tu navegador cuando te lo pida. Windows: ejecuta el MSI y acepta el aviso de SmartScreen con "Ejecutar de todas formas".',
+  },
+  {
+    titulo: 'Disfruta',
+    texto: 'Abre Souphra, elige tu emisora o busca una canción. Cuando salga una versión nueva, la app te avisará sola.',
+  },
+];
+
+const preguntas = [
+  {
+    q: '¿Souphra es realmente gratis?',
+    a: 'Sí. No se cobra por la app, ni por descargarla, ni por ninguna función. Tampoco hay anuncios, suscripciones ni compras dentro de la app.',
+  },
+  {
+    q: '¿En qué dispositivos funciona?',
+    a: 'En Android (APK para arm64-v8a y universal) y en Windows (instalador MSI de 64 bits). Ambas versiones se publican aquí mismo, en GitHub Releases.',
+  },
+  {
+    q: '¿Cómo se actualiza la app?',
+    a: 'Cada 24 horas Souphra revisa si hay una versión nueva. Si existe, te muestra una notificación y un aviso para actualizar: la descarga es directa y, si falla, se abre el navegador en la página de la versión.',
+  },
+  {
+    q: '¿De dónde viene la música?',
+    a: 'La app reproduce contenido disponible públicamente: streams de emisoras colombianas y catálogos de música en línea. Souphra no aloja ni distribuye archivos de música.',
+  },
+  {
+    q: '¿Recopila mis datos?',
+    a: 'No. Solo se usa lo mínimo necesario para reproducir contenido y avisarte de actualizaciones. No se vende ni comparte información personal.',
+  },
+];
 ---
 
 <Base>
-  <!-- NAV -->
+  <!-- ============ NAV ============ -->
   <nav>
     <div class="container inner">
       <a href="#" class="logo">
-        <span class="logo-mark">Ψ</span>
+        <img src="/souphra-releases/logo.svg" alt="" width="36" height="36" />
         <span>souphra</span>
       </a>
       <div class="nav-links">
-        <a href="#features">Funciones</a>
+        <a href="#funciones">Funciones</a>
         <a href="#radio">Radio</a>
-        <a href="#como">Cómo instalar</a>
-        <a href="#legal">Legal</a>
+        <a href="#descarga">Descargar</a>
+        <a href="#preguntas">Preguntas</a>
       </div>
-      <a id="navDownload" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-primary btn-sm">Descargar APK</a>
+      <a id="navDownload" href={RELEASES_URL} class="btn btn-primary btn-sm">Descargar</a>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="section-pad" style="position:relative; overflow:hidden">
-    <span class="psi-watermark" style="right:-40px; top:-60px">Ψ</span>
-    <div class="grid-pattern" style="position:absolute; inset:0; opacity:.05; pointer-events:none"></div>
-    <div class="container hero-grid" style="position:relative">
-      <div>
-        <span class="badge"><span class="badge-dot"></span> Hecho en Colombia • rojos profundos</span>
-        <h1 style="margin:24px 0 0; font-size:clamp(38px,6vw,58px); line-height:.98">
-          Música sin<br/><span style="background:linear-gradient(90deg,#ff5a5a,#ff1a1a);-webkit-background-clip:text;background-clip:text;color:transparent">interrupciones.</span>
-        </h1>
-        <p style="margin:20px 0 0; font-size:17px; color:var(--muted); line-height:1.6; max-width:52ch">
-          Radio colombiana en vivo, biblioteca, crossfade y letras sincronizadas — una app <strong style="color:#fff">gratuita, privada y sin anuncios</strong>, siempre actualizada.
-        </p>
-        <div style="margin-top:32px; display:flex; flex-wrap:wrap; gap:12px">
-          <a id="heroDownload" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-primary glow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3M12 15l-4-4M12 15l4-4M2 17l.06 1.2a1.5 1.5 0 0 0 1.44 1.4H20a1.5 1.5 0 0 0 1.5-1.5V17"/></svg>
-            Descargar APK
-          </a>
-          <a href="#features" class="btn btn-outline">Explorar funciones</a>
-        </div>
-        <div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:10px">
-          <span class="badge"><span class="badge-dot" style="animation:pulse 1.6s infinite"></span> Actualización cada 24 h</span>
-          <span class="badge" id="latestTag" style="color:var(--text-dim)">cargando versión…</span>
-        </div>
-        <style>@keyframes pulse { 50% { opacity:.3 } }</style>
-        <p style="margin-top:14px; font-size:12px; color:var(--text-dim); max-width:56ch">
-          Si ves “Actualización disponible”, toca <strong style="color:rgba(255,255,255,.6)">Descargar</strong> — baja directo; si falla, abre el navegador en el release.
-        </p>
-      </div>
-      <div style="justify-self:center; width:100%; max-width:340px">
-        <div class="glow" style="border-radius:44px; padding:14px; background:linear-gradient(180deg,#1a0a0a,#000); border:1px solid var(--line-strong)">
-          <div style="background:#000; border-radius:34px; overflow:hidden; border:1px solid var(--line)">
-            <div style="height:26px; background:#120606; display:flex; align-items:center; justify-content:center"><span style="width:82px; height:6px; background:rgba(255,255,255,.12); border-radius:99px"></span></div>
-            <div style="aspect-ratio:9/19; background:radial-gradient(120% 90% at 50% -10%, rgba(122,10,10,.6), #000 60%); display:grid; place-items:center; padding:32px; text-align:center">
-              <div>
-                <div style="width:84px; height:84px; margin:0 auto; border-radius:24px; background:linear-gradient(180deg,#ff3b30,#7a0a0a); display:grid; place-items:center; font-size:40px; font-weight:800; box-shadow:0 10px 30px rgba(122,10,10,.5)">Ψ</div>
-                <p style="margin:16px 0 0; font-family:Poppins; font-weight:800; letter-spacing:-.02em">souphra</p>
-                <p style="margin:4px 0 0; font-size:12px; color:var(--text-dim)">Radio • Biblioteca • Letras</p>
-                <div style="margin-top:24px; display:flex; gap:8px; justify-content:center">
-                  <span style="width:8px; height:8px; border-radius:50%; background:var(--brand); animation:pulse 1.4s infinite"></span>
-                  <span style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.2)"></span>
-                  <span style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.2)"></span>
-                </div>
-              </div>
-            </div>
-            <div style="height:58px; background:#000; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-around; padding:0 8px">
-              <span style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.1); display:grid; place-items:center; font-size:12px">⌂</span>
-              <span style="width:40px; height:40px; border-radius:50%; background:linear-gradient(180deg,#ff3b30,#7a0a0a); display:grid; place-items:center; font-size:12px">♫</span>
-              <span style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.1); display:grid; place-items:center; font-size:12px">◎</span>
-              <span style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.1); display:grid; place-items:center; font-size:12px">♡</span>
-              <span style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.1); display:grid; place-items:center; font-size:12px">≡</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRUST BAR -->
-  <section style="border-block:1px solid var(--line); background:rgba(20,8,8,.6)">
-    <div class="container" style="padding:16px 24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim)">
-      <span>Sin anuncios</span><span style="color:rgba(255,255,255,.15)">•</span><span>Sin cobros</span><span style="color:rgba(255,255,255,.15)">•</span><span>Sin rastreo</span><span style="color:rgba(255,255,255,.15)">•</span><span>Siempre al día</span><span style="color:rgba(255,255,255,.15)">•</span><span>Hecho para amigos</span>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="container section-pad" style="position:relative">
-    <span class="psi-watermark" style="left:-30px; bottom:-40px">Ψ</span>
-    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px">
-      <h2 class="section-title">Todo lo que importa,<br/>nada que sobra</h2>
-      <span style="font-size:14px; color:var(--text-dim)">Diseño oscuro • rojos profundos + Ψ</span>
-    </div>
-    <div class="feature-grid" style="margin-top:32px">
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;font-weight:700;box-shadow:0 6px 16px rgba(122,10,10,.4)">◉</div><h3 style="margin:16px 0 0">Radio continua</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">27 emisoras colombianas verificadas con reconexión transparente — sin cortes ni loops.</p></div>
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(122,10,10,.4)">♬</div><h3 style="margin:16px 0 0">Reproducción pro</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">Crossfade, cola infinita, letras sincronizadas, SponsorBlock y normalización.</p></div>
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(122,10,10,.4)">⬢</div><h3 style="margin:16px 0 0">Interfaz cuidada</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">Barra negra con partículas, transiciones corregidas y ajustes por categorías.</p></div>
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(122,10,10,.4)">⬇</div><h3 style="margin:16px 0 0">Actualización forzada</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">Comprueba cada 24 h y te obliga a actualizar — descarga directa o navegador.</p></div>
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(122,10,10,.4)">◎</div><h3 style="margin:16px 0 0">Navegación sólida</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">Sin pantallas a medias, con debounce y haze optimizado.</p></div>
-      <div class="card"><div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(122,10,10,.4)">♡</div><h3 style="margin:16px 0 0">Privada y gratuita</h3><p style="margin:8px 0 0;font-size:14px;color:var(--muted);line-height:1.6">Para compartir entre amigos. Sin cobros, sin suscripciones, sin anuncios.</p></div>
-    </div>
-  </section>
-
-  <!-- RADIO -->
-  <section id="radio" style="background:linear-gradient(180deg, #150a0a, #0d0505); border-block:1px solid var(--line)">
-    <div class="container section-pad two-col">
-      <div>
-        <span class="badge" style="color:var(--brand); background:rgba(255,59,48,.14); border-color:rgba(255,59,48,.3)">En vivo • Colombia</span>
-        <h2 style="margin-top:14px; font-size:clamp(24px,3vw,30px)">Radio de Colombia,<br/>sin interrupciones</h2>
-        <p style="margin:12px 0 0; color:var(--muted); line-height:1.6">Caracol, W Radio, Olímpica, Tropicana, La Mega, Radioacktiva y 20 más — verificadas y con reconexión transparente que evita repeticiones.</p>
-        <ul style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:14px; color:rgba(255,255,255,.75)">
-          <li>• Caracol Radio</li><li>• W Radio</li><li>• Olímpica Stereo</li><li>• Tropicana</li><li>• La Mega</li><li>• Blu Radio</li><li>• Radioacktiva</li><li>• +20 emisoras</li>
-        </ul>
-      </div>
-      <div class="card" style="background:linear-gradient(180deg,#120808,#0a0404)">
-        <div style="display:flex; align-items:center; justify-content:space-between">
-          <span style="font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim)">En vivo</span>
-          <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:6px 12px; border-radius:99px; background:linear-gradient(180deg,#ff3b30,#7a0a0a); color:#fff">LIVE <span style="width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite"></span></span>
-        </div>
-        <div style="margin-top:16px; height:100px; background:radial-gradient(120% 120% at 20% 0%, rgba(255,59,48,.25), rgba(255,59,48,.03)); border-radius:14px; border:1px solid var(--line); display:grid; place-items:center; color:var(--text-dim); font-size:14px">Visualizador — en la app</div>
-        <div style="margin-top:16px; display:flex; align-items:center; justify-content:space-between; font-size:14px"><span style="color:var(--muted)">Ahora suena</span><span style="font-weight:600">Continúa sin cortes</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMO + DESCARGA -->
-  <section id="como" class="container section-pad">
-    <div style="border-radius:28px; padding:1.5px; background:linear-gradient(135deg, #ff5a5a, #7a0a0a)">
-      <div style="border-radius:26px; background:linear-gradient(180deg,#120808,#0a0404); padding:40px">
-        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:32px">
-          <div>
-            <h2 style="font-size:clamp(24px,3vw,28px); margin:0">Descarga la última versión</h2>
-            <p style="margin:8px 0 0; color:var(--muted); max-width:52ch">La APK se publica en GitHub Releases. La app te avisa cada 24 h y te pide actualizar — descarga directa prioritaria, navegador como respaldo.</p>
-            <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px">
-              <span class="badge" id="dlVersion">versión…</span>
-              <span class="badge" id="dlDate" style="color:var(--text-dim)">fecha…</span>
-              <span class="badge" style="color:var(--text-dim)">Android: arm64-v8a • universal</span>
-              <span class="badge" style="color:var(--text-dim)">Windows: MSI x64</span>
-            </div>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:280px">
-            <a id="dlPrimary" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-primary" style="justify-content:center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="section-pad" style="position:relative; overflow:hidden">
+      <canvas id="particles" aria-hidden="true"></canvas>
+      <span class="psi-watermark" style="right:-40px; top:-70px" aria-hidden="true">Ψ</span>
+      <div class="grid-pattern" style="position:absolute; inset:0; opacity:.5; pointer-events:none" aria-hidden="true"></div>
+      <div class="container hero-grid" style="position:relative">
+        <div>
+          <span class="badge"><span class="badge-dot pulse"></span> Radio en vivo · Hecho en Colombia</span>
+          <h1 class="hero-title">
+            Tu música,<br /><span class="text-gradient">sin interrupciones.</span>
+          </h1>
+          <p style="margin:22px 0 0; font-size:17px; color:var(--muted); line-height:1.65; max-width:52ch">
+            Emisoras colombianas en vivo, tu biblioteca, transiciones suaves y letras sincronizadas.
+            Una app <strong style="color:#fff">gratuita, privada y sin anuncios</strong>.
+          </p>
+          <div style="margin-top:34px; display:flex; flex-wrap:wrap; gap:12px">
+            <a id="heroDownload" href={RELEASES_URL} class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M12 15l-4-4M12 15l4-4M2 17l.06 1.2a1.5 1.5 0 0 0 1.44 1.4H20a1.5 1.5 0 0 0 1.5-1.5V17"/></svg>
               Descargar para Android
             </a>
-            <a id="dlWindowsCard" href="https://github.com/sebastianl1/souphra-releases/releases/latest" class="btn btn-outline" style="justify-content:center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
-              Descargar para Windows
-            </a>
-            <a href="https://github.com/sebastianl1/souphra-releases/releases" style="text-align:center; font-size:14px; color:var(--muted); text-decoration:none">Ver todas las releases →</a>
+            <a href="#funciones" class="btn btn-outline">Explorar funciones</a>
+          </div>
+          <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:10px">
+            <span class="badge badge-neutral"><span class="badge-dot pulse"></span> Se actualiza sola cada 24 h</span>
+            <span class="badge badge-neutral" id="latestTag" style="color:var(--text-dim)">Consultando versión…</span>
+          </div>
+        </div>
+
+        <div style="justify-self:center; width:100%; max-width:340px" class="float-slow">
+          <div class="phone-shell glow">
+            <div class="phone-screen">
+              <div class="phone-notch"><span></span></div>
+              <div class="phone-body">
+                <div>
+                  <div class="phone-app-icon">
+                    <img src="/souphra-releases/logo.svg" alt="Ícono de la app Souphra" width="88" height="88" />
+                  </div>
+                  <p style="margin:18px 0 0; font-family:Poppins; font-weight:800; letter-spacing:-.02em">souphra</p>
+                  <p style="margin:4px 0 0; font-size:12px; color:var(--text-dim)">Radio · Biblioteca · Letras</p>
+                  <div class="eq" style="margin-top:28px; height:52px" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-dock" aria-hidden="true">
+                <span>⌂</span>
+                <span class="active">♫</span>
+                <span>◎</span>
+                <span>♡</span>
+                <span>≡</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div style="margin-top:32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; font-size:14px">
-      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">1</span><h3 style="margin:16px 0 0">Descarga</h3><p style="margin:8px 0 0;color:var(--muted)">Android: toca <strong style="color:#fff">Descargar para Android</strong> (APK). Windows: usa <strong style="color:#fff">Descargar para Windows</strong> (instalador MSI).</p></div>
-      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-weight:700">2</span><h3 style="margin:16px 0 0">Instala</h3><p style="margin:8px 0 0;color:var(--muted)">Android: permite “apps desconocidas” para el navegador. Windows: ejecuta el MSI (SmartScreen → “Ejecutar de todas formas”).</p></div>
-      <div class="card"><span style="width:34px;height:34px;border-radius:50%;background:linear-gradient(180deg,#ff3b30,#7a0a0a);color:#fff;display:grid;place-items:center;font-weight:700">3</span><h3 style="margin:16px 0 0">Actualización forzada</h3><p style="margin:8px 0 0;color:var(--muted)">Cuando haya versión nueva verás notificación y diálogo bloqueante hasta instalar.</p></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- LEGAL -->
-  <section id="legal" style="background:linear-gradient(180deg,#0d0505,#070507); border-block:1px solid var(--line)">
-    <div class="container" style="padding:48px 24px; position:relative; overflow:hidden">
-      <span class="psi-watermark" style="right:-40px; top:-60px">Ψ</span>
-      <h2 style="font-size:24px; margin:0">Legal — uso libre y gratuito</h2>
-      <div style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; font-size:14px; line-height:1.6">
-        <div class="card" style="background:linear-gradient(180deg,#120808,#0a0404)"><h3 style="margin:0; color:#fff">Gratis, sin cobros</h3><p style="margin:8px 0 0; color:var(--muted)">Souphra es <strong style="color:#fff">totalmente gratuita</strong>. No se cobra por la app, ni por descargas, ni por funciones. No hay compras internas, suscripciones, ni anuncios. Puedes instalarla y compartir la APK libremente entre amigos.</p></div>
-        <div class="card" style="background:linear-gradient(180deg,#120808,#0a0404)"><h3 style="margin:0; color:#fff">Respeto a derechos</h3><p style="margin:8px 0 0; color:var(--muted)">La app reproduce contenido disponible públicamente (YouTube Music y streams de radio). No aloja música ni elude DRM. El uso debe respetar los términos de las fuentes originales.</p></div>
-        <div class="card" style="background:linear-gradient(180deg,#120808,#0a0404)"><h3 style="margin:0; color:#fff">Privacidad y transparencia</h3><p style="margin:8px 0 0; color:var(--muted)">No se recopilan datos personales más allá de lo necesario para reproducir y notificar actualizaciones. No se vende información.</p></div>
+    <!-- ============ MARQUESINA ============ -->
+    <section class="marquee" aria-label="Ventajas de Souphra">
+      <div class="marquee-track">
+        <span>Sin anuncios <i>✦</i> Sin cobros <i>✦</i> Sin rastreo <i>✦</i> Radio colombiana en vivo <i>✦</i> Letras sincronizadas <i>✦</i> Siempre actualizada <i>✦</i></span>
+        <span aria-hidden="true">Sin anuncios <i>✦</i> Sin cobros <i>✦</i> Sin rastreo <i>✦</i> Radio colombiana en vivo <i>✦</i> Letras sincronizadas <i>✦</i> Siempre actualizada <i>✦</i></span>
       </div>
-      <p style="margin-top:24px; font-size:12px; color:var(--text-dim)">Si eres titular de derechos y consideras que algún stream debe retirarse, abre un Issue en <a href="https://github.com/sebastianl1/souphra-releases/issues" style="text-decoration:underline; color:inherit">souphra-releases</a>.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
+    <!-- ============ FUNCIONES ============ -->
+    <section id="funciones" class="container section-pad" style="position:relative">
+      <span class="psi-watermark" style="left:-30px; bottom:-50px" aria-hidden="true">Ψ</span>
+      <div class="reveal">
+        <p class="eyebrow">Funciones</p>
+        <h2 class="section-title" style="margin:10px 0 0">Todo lo que importa,<br />nada que estorbe</h2>
+      </div>
+      <div class="feature-grid" style="margin-top:40px">
+        {funciones.map((f, i) => (
+          <article class={`card reveal reveal-d${(i % 3) + 1}`}>
+            <div class="icon-tile" aria-hidden="true">{f.icono}</div>
+            <h3 style="margin:16px 0 0; font-size:18px">{f.titulo}</h3>
+            <p style="margin:8px 0 0; font-size:14px; color:var(--muted); line-height:1.65">{f.texto}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ RADIO ============ -->
+    <section id="radio" style="background:linear-gradient(180deg, #120406, #0a0203); border-block:1px solid var(--line)">
+      <div class="container section-pad two-col">
+        <div class="reveal">
+          <span class="badge"><span class="badge-dot pulse"></span> En vivo · Colombia</span>
+          <h2 style="margin-top:16px; font-size:clamp(26px,3.4vw,34px); line-height:1.15">
+            Las emisoras que<br /><span class="text-gradient">creciste escuchando</span>
+          </h2>
+          <p style="margin:14px 0 0; color:var(--muted); line-height:1.65">
+            Caracol, W Radio, Olímpica, Tropicana, La Mega y muchas más, verificadas
+            y con reconexión automática para que no pierdas ni un segundo de tu programación favorita.
+          </p>
+          <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:10px">
+            {estaciones.map((e) => <span class="station-chip"><i aria-hidden="true"></i>{e}</span>)}
+          </div>
+        </div>
+        <div class="card reveal reveal-d1" style="background:linear-gradient(180deg,#170709,#0d0304)">
+          <div style="display:flex; align-items:center; justify-content:space-between">
+            <span style="font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim)">En vivo</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:6px 12px; border-radius:99px; background:linear-gradient(180deg,#ff4d5a,#780000); color:#fff">
+              EN VIVO <span style="width:7px;height:7px;border-radius:50%;background:#fff" class="pulse"></span>
+            </span>
+          </div>
+          <div style="margin-top:20px; padding:20px 12px; background:radial-gradient(120% 130% at 20% 0%, rgba(224,30,47,.22), rgba(224,30,47,.03)); border-radius:14px; border:1px solid var(--line)">
+            <div class="eq" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div style="margin-top:18px; display:flex; align-items:center; justify-content:space-between; font-size:14px">
+            <span style="color:var(--muted)">Reconexión automática</span>
+            <span style="font-weight:600; color:var(--brand-bright)">Activa</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DESCARGA ============ -->
+    <section id="descarga" class="container section-pad">
+      <div class="reveal" style="border-radius:28px; padding:1.5px; background:linear-gradient(135deg, #ff4d5a, #4a0409)">
+        <div style="border-radius:26px; background:linear-gradient(180deg,#170709,#0d0304); padding:clamp(28px,5vw,48px)">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:36px">
+            <div>
+              <p class="eyebrow" style="margin:0">Descarga</p>
+              <h2 style="font-size:clamp(24px,3vw,30px); margin:10px 0 0">Consigue la última versión</h2>
+              <p style="margin:12px 0 0; color:var(--muted); max-width:52ch; line-height:1.65">
+                Las versiones se publican en GitHub Releases. La app te avisa cada 24 horas
+                cuando sale una nueva y te lleva directo a la descarga.
+              </p>
+              <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px">
+                <span class="badge" id="dlVersion">Consultando versión…</span>
+                <span class="badge badge-neutral" id="dlDate" style="color:var(--text-dim)"></span>
+                <span class="badge badge-neutral">Android: arm64-v8a · universal</span>
+                <span class="badge badge-neutral">Windows: MSI x64</span>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:300px">
+              <a id="dlPrimary" href={RELEASES_URL} class="btn btn-primary" style="justify-content:center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
+                Descargar para Android
+              </a>
+              <a id="dlWindowsCard" href={RELEASES_URL} class="btn btn-outline" style="justify-content:center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
+                Descargar para Windows
+              </a>
+              <a href={RELEASES_ALL} style="text-align:center; font-size:14px; color:var(--muted); text-decoration:none">Ver todas las versiones →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px">
+        {pasos.map((p, i) => (
+          <div class={`card reveal reveal-d${i + 1}`}>
+            <div class="step-card">
+              <span class="step-num" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3 style="margin:6px 0 0; font-size:17px">{p.titulo}</h3>
+                <p style="margin:8px 0 0; color:var(--muted); font-size:14px; line-height:1.65">{p.texto}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ PREGUNTAS FRECUENTES ============ -->
+    <section id="preguntas" style="background:linear-gradient(180deg,#0a0203,#060203); border-block:1px solid var(--line)">
+      <div class="container section-pad" style="max-width:820px">
+        <div class="reveal" style="text-align:center">
+          <p class="eyebrow" style="margin:0">Preguntas frecuentes</p>
+          <h2 class="section-title" style="margin:10px 0 0">Lo que suelen preguntarnos</h2>
+        </div>
+        <div class="reveal reveal-d1" style="margin-top:36px">
+          {preguntas.map((p) => (
+            <details class="faq-item">
+              <summary>{p.q}</summary>
+              <p>{p.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEGAL ============ -->
+    <section id="legal" class="container" style="padding:64px 0 48px; position:relative; overflow:hidden">
+      <span class="psi-watermark" style="right:-40px; top:-70px" aria-hidden="true">Ψ</span>
+      <div class="reveal">
+        <h2 style="font-size:24px; margin:0">Términos de uso</h2>
+        <div style="margin-top:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; font-size:14px; line-height:1.65">
+          <div class="card">
+            <h3 style="margin:0; font-size:16px">Gratis, sin cobros</h3>
+            <p style="margin:8px 0 0; color:var(--muted)">
+              Souphra es <strong style="color:#fff">totalmente gratuita</strong>. No se cobra por la app, ni por las descargas,
+              ni por las funciones. No hay anuncios, suscripciones ni compras dentro de la app, y puedes compartir el APK libremente.
+            </p>
+          </div>
+          <div class="card">
+            <h3 style="margin:0; font-size:16px">Respeto a los derechos de autor</h3>
+            <p style="margin:8px 0 0; color:var(--muted)">
+              La app reproduce contenido disponible públicamente (música en línea y transmisiones de radio).
+              No aloja música ni evade protecciones. El uso debe respetar los términos de las fuentes originales.
+            </p>
+          </div>
+          <div class="card">
+            <h3 style="margin:0; font-size:16px">Privacidad y transparencia</h3>
+            <p style="margin:8px 0 0; color:var(--muted)">
+              No se recopilan datos personales más allá de lo necesario para reproducir contenido y avisarte
+              de actualizaciones. No se vende información a nadie.
+            </p>
+          </div>
+        </div>
+        <p style="margin-top:26px; font-size:12px; color:var(--text-dim)">
+          Si eres titular de derechos y consideras que alguna transmisión debe retirarse, abre un issue en
+          <a href={ISSUES_URL} style="text-decoration:underline; color:inherit">el repositorio del proyecto</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
   <footer style="border-top:1px solid var(--line)">
-    <div class="container" style="padding:32px 24px; display:flex; flex-direction:column; gap:16px; align-items:center; justify-content:space-between; text-align:center; font-size:14px; color:var(--text-dim)">
-      <span>© 2026 <span style="font-family:'Poppins';font-weight:800">Ψ souphra</span> — Hecho con ♥ en Colombia • <span style="color:var(--brand)">rojos profundos</span></span>
+    <div class="container" style="padding:36px 24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; font-size:14px; color:var(--text-dim)">
+      <span>© 2026 <span style="font-family:'Poppins'; font-weight:800; color:#fff">Ψ souphra</span> — Hecho con ♥ en Colombia</span>
       <div style="display:flex; gap:20px">
-        <a href="https://github.com/sebastianl1/souphra-releases/releases" style="color:inherit; text-decoration:none">Releases</a>
+        <a href={RELEASES_ALL} style="color:inherit; text-decoration:none">Versiones</a>
         <a href="https://github.com/sebastianl1/souphra-releases" style="color:inherit; text-decoration:none">Repositorio</a>
-        <a href="#legal" style="color:inherit; text-decoration:none">Legal</a>
+        <a href="#legal" style="color:inherit; text-decoration:none">Términos</a>
       </div>
     </div>
   </footer>
 
   <script is:inline>
-    async function loadRelease() {
-      const el = id => document.getElementById(id);
-      try {
-        const r = await fetch('https://api.github.com/repos/sebastianl1/souphra-releases/releases/latest', { headers: { 'Accept': 'application/vnd.github+json' } });
-        if (!r.ok) throw new Error(r.status);
-        const j = await r.json();
-        const tag = j.tag_name || j.name || '—';
-        const date = j.published_at ? new Date(j.published_at).toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-        const apk = (j.assets || []).find(a => a.name && a.name.endsWith('.apk')) || j.assets?.[0];
-        const msi = (j.assets || []).find(a => a.name && a.name.endsWith('.msi'));
-        el('latestTag').textContent = tag;
-        el('dlVersion').textContent = tag;
-        el('dlDate').textContent = date;
-        const url = apk ? apk.browser_download_url : j.html_url;
-        if (url) { el('dlPrimary').href = url; el('heroDownload').href = url; el('navDownload').href = url; }
-        if (msi) { el('dlWindowsCard').href = msi.browser_download_url; }
-      } catch (e) {
-        el('latestTag').textContent = 'sin releases aún';
-        el('dlVersion').textContent = 'próximamente';
-        el('dlDate').textContent = '';
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---- Partículas (brasas ascendentes) ---- */
+      var canvas = document.getElementById('particles');
+      if (canvas && !reduceMotion) {
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var running = true;
+
+        function resize() {
+          var section = canvas.parentElement;
+          canvas.width = section.offsetWidth;
+          canvas.height = section.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function crear(n) {
+          for (var i = 0; i < n; i++) {
+            particles.push({
+              x: Math.random() * canvas.width,
+              y: canvas.height + Math.random() * canvas.height * 0.5,
+              r: 0.6 + Math.random() * 2.2,
+              vy: 0.25 + Math.random() * 0.8,
+              vx: (Math.random() - 0.5) * 0.3,
+              alpha: 0.15 + Math.random() * 0.45,
+              flicker: Math.random() * Math.PI * 2,
+            });
+          }
+        }
+        crear(70);
+
+        function tick() {
+          if (!running) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.y -= p.vy;
+            p.x += p.vx + Math.sin(p.y * 0.01) * 0.15;
+            p.flicker += 0.05;
+            if (p.y < -10) {
+              p.y = canvas.height + 10;
+              p.x = Math.random() * canvas.width;
+            }
+            var a = p.alpha * (0.65 + 0.35 * Math.sin(p.flicker));
+            var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+            grad.addColorStop(0, 'rgba(255, 120, 120, ' + a + ')');
+            grad.addColorStop(0.5, 'rgba(224, 30, 47, ' + (a * 0.6) + ')');
+            grad.addColorStop(1, 'rgba(224, 30, 47, 0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          requestAnimationFrame(tick);
+        }
+
+        /* Pausa cuando la pestaña no está visible */
+        document.addEventListener('visibilitychange', function () {
+          var hidden = document.hidden;
+          if (hidden && running) { running = false; }
+          else if (!hidden && !running) { running = true; tick(); }
+        });
+
+        tick();
       }
-    }
-    loadRelease();
+
+      /* ---- Aparición al hacer scroll ---- */
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      /* ---- Versión y enlaces de descarga desde GitHub ---- */
+      function el(id) { return document.getElementById(id); }
+      fetch('https://api.github.com/repos/sebastianl1/souphra-releases/releases/latest', {
+        headers: { Accept: 'application/vnd.github+json' },
+      })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (j) {
+          var tag = j.tag_name || j.name || '—';
+          var fecha = j.published_at
+            ? new Date(j.published_at).toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' })
+            : '';
+          var apk = (j.assets || []).find(function (a) { return a.name && a.name.endsWith('.apk'); }) || (j.assets || [])[0];
+          var msi = (j.assets || []).find(function (a) { return a.name && a.name.endsWith('.msi'); });
+          el('latestTag').textContent = 'Última versión: ' + tag;
+          el('dlVersion').textContent = tag;
+          el('dlDate').textContent = fecha;
+          var url = apk ? apk.browser_download_url : j.html_url;
+          if (url) {
+            el('dlPrimary').href = url;
+            el('heroDownload').href = url;
+            el('navDownload').href = url;
+          }
+          if (msi) el('dlWindowsCard').href = msi.browser_download_url;
+        })
+        .catch(function () {
+          el('latestTag').textContent = 'Aún no hay versiones publicadas';
+          el('dlVersion').textContent = 'Próximamente';
+          el('dlDate').textContent = '';
+        });
+    })();
   </script>
 </Base>
