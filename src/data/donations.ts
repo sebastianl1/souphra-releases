@@ -7,3 +7,7 @@ export const carteras: Record<string, string> = {
 
 export const BUYMEACOFFEE_URL = 'https://buymeacoffee.com/sebasbele1c';
 export const SPONSORS_URL = 'https://github.com/sponsors/sebastianl1';
+
+/* Contacto directo con el desarrollador. */
+export const WHATSAPP_URL = 'https://wa.me/573106197255';
+export const CONTACT_EMAIL = 'na11tsabes11@gmail.com';
