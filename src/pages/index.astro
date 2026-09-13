@@ -11,6 +11,21 @@ const estaciones = [
   'La Mega', 'Blu Radio', 'Radioacktiva', 'y muchas más',
 ];
 
+const pills = [
+  'Radio en vivo',
+  'Letras sincronizadas',
+  'Motor propio',
+  'Sin anuncios',
+  'Actualización en un toque',
+];
+
+const destacados = [
+  { valor: '27+', etiqueta: 'emisoras colombianas' },
+  { valor: '0', etiqueta: 'anuncios ni rastreo' },
+  { valor: '4', etiqueta: 'secciones a un toque' },
+  { valor: '100%', etiqueta: 'gratis, para siempre' },
+];
+
 const funciones = [
   {
     icono: '◉',
@@ -93,6 +108,7 @@ const preguntas = [
       </a>
       <div class="nav-links">
         <a href="#funciones">Funciones</a>
+        <a href="#novedades">Novedades</a>
         <a href="#radio">Radio</a>
         <a href="#descarga">Descargar</a>
         <a href="#contacto">Contacto</a>
@@ -128,7 +144,10 @@ const preguntas = [
             <a href="#funciones" class="btn btn-outline">Explorar funciones</a>
             <a href="#donar" class="btn btn-outline" style="border-color:rgba(224,30,47,.35)">☕ Donar</a>
           </div>
-          <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:10px">
+          <div class="pill-row" style="margin-top:28px">
+            {pills.map((p) => <span class="pill">{p}</span>)}
+          </div>
+          <div style="margin-top:22px; display:flex; flex-wrap:wrap; gap:10px">
             <span class="badge badge-neutral" id="latestTag" style="color:var(--text-dim)">Consultando versión…</span>
           </div>
         </div>
@@ -171,6 +190,18 @@ const preguntas = [
       </div>
     </section>
 
+    <!-- ============ STATS ============ -->
+    <section class="container" style="padding:56px 0 0">
+      <div class="stat-strip reveal">
+        {destacados.map((d) => (
+          <div class="stat">
+            <span class="stat-value text-gradient">{d.valor}</span>
+            <span class="stat-label">{d.etiqueta}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- ============ FUNCIONES ============ -->
     <section id="funciones" class="container section-pad" style="position:relative">
       <span class="psi-watermark" style="left:-30px; bottom:-50px" aria-hidden="true">Ψ</span>
@@ -186,6 +217,31 @@ const preguntas = [
             <p style="margin:8px 0 0; font-size:14px; color:var(--muted); line-height:1.65">{f.texto}</p>
           </article>
         ))}
+      </div>
+    </section>
+
+    <!-- ============ NOVEDADES ============ -->
+    <section id="novedades" class="container section-pad" style="position:relative">
+      <span class="psi-watermark" style="right:-40px; top:-40px" aria-hidden="true">Ψ</span>
+      <div class="two-col">
+        <div class="reveal">
+          <p class="eyebrow">Novedades</p>
+          <h2 class="section-title" style="margin:10px 0 0">Siempre mejorando</h2>
+          <p style="margin:14px 0 0; color:var(--muted); line-height:1.65">
+            Esta es la versión más reciente de Souphra, publicada directamente desde GitHub.
+            La app te avisa sola cuando haya una nueva.
+          </p>
+          <div style="margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; font-size:12px">
+            <span class="badge" id="newsVersion">Consultando…</span>
+            <span class="badge badge-neutral" id="newsDate" style="color:var(--text-dim)"></span>
+          </div>
+          <a href={RELEASES_ALL} class="btn btn-outline btn-sm" style="margin-top:22px">Ver el historial completo</a>
+        </div>
+        <div class="card reveal reveal-d1" style="background:linear-gradient(180deg,#170709,#0d0304)">
+          <div id="newsBody" class="changelog">
+            <p class="changelog-empty">Consultando las novedades de la última versión…</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -242,7 +298,7 @@ const preguntas = [
                 <span class="badge" id="dlVersion">Consultando versión…</span>
                 <span class="badge badge-neutral" id="dlDate" style="color:var(--text-dim)"></span>
                 <span class="badge badge-neutral">Android: arm64-v8a · universal</span>
-                <span class="badge badge-neutral">Windows: MSI x64</span>
+                <span class="badge badge-neutral">Windows: próximamente</span>
               </div>
             </div>
             <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:300px">
@@ -252,7 +308,7 @@ const preguntas = [
               </a>
               <a id="dlWindowsCard" href={RELEASES_URL} class="btn btn-outline" style="justify-content:center">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
-                Descargar para Windows
+                Windows <span style="opacity:.6; font-weight:600">· próximamente</span>
               </a>
               <a href={RELEASES_ALL} style="text-align:center; font-size:14px; color:var(--muted); text-decoration:none">Ver todas las versiones →</a>
             </div>
@@ -583,6 +639,35 @@ const preguntas = [
           el('latestTag').textContent = 'Última versión: ' + tag;
           el('dlVersion').textContent = tag;
           el('dlDate').textContent = fecha;
+          el('newsVersion').textContent = tag;
+          el('newsDate').textContent = fecha;
+
+          function renderNotas(md) {
+            if (!md) return '';
+            var lineas = String(md).split('\n');
+            var html = '';
+            var abierta = false;
+            var negrita = function (s) { return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); };
+            lineas.forEach(function (linea) {
+              var l = linea.trim();
+              if (!l) return;
+              if (l.indexOf('## ') === 0) {
+                if (abierta) { html += '</ul>'; abierta = false; }
+                html += '<h3 class="changelog-title">' + negrita(l.slice(3)) + '</h3>';
+              } else if (l.indexOf('- ') === 0 || l.indexOf('* ') === 0) {
+                if (!abierta) { html += '<ul class="changelog-list">'; abierta = true; }
+                html += '<li>' + negrita(l.slice(2)) + '</li>';
+              } else {
+                if (abierta) { html += '</ul>'; abierta = false; }
+                html += '<p class="changelog-note">' + negrita(l) + '</p>';
+              }
+            });
+            if (abierta) html += '</ul>';
+            return html;
+          }
+          var notas = renderNotas(j.body);
+          if (notas) el('newsBody').innerHTML = notas;
+
           var url = apk ? apk.browser_download_url : j.html_url;
           if (url) {
             el('dlPrimary').href = url;
@@ -595,6 +680,10 @@ const preguntas = [
           el('latestTag').textContent = 'Aún no hay versiones publicadas';
           el('dlVersion').textContent = 'Próximamente';
           el('dlDate').textContent = '';
+          el('newsVersion').textContent = 'Próximamente';
+          el('newsDate').textContent = '';
+          el('newsBody').innerHTML =
+            '<p class="changelog-empty">Muy pronto publicaremos las novedades de la próxima versión.</p>';
         });
     })();
   </script>
