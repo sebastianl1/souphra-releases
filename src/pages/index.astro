@@ -4,6 +4,12 @@ import { carteras, BUYMEACOFFEE_URL, SPONSORS_URL, WHATSAPP_URL, CONTACT_EMAIL }
 
 const RELEASES_URL = 'https://github.com/sebastianl1/souphra-releases/releases/latest';
 const RELEASES_ALL = 'https://github.com/sebastianl1/souphra-releases/releases';
+// Serve the APK from the same origin as the site. GitHub Releases redirects to
+// objects.githubusercontent.com, and mobile Chrome frequently stalls that large
+// download just short of 100%; GitHub Pages (Fastly) serves it with a real
+// Content-Length and range support, which mobile browsers handle reliably.
+const APK_URL = '/souphra-releases/souphra.apk';
+const APK_MIRROR = 'https://github.com/sebastianl1/souphra-releases/releases/latest/download/souphra.apk';
 const ISSUES_URL = 'https://github.com/sebastianl1/souphra-releases/issues';
 
 const estaciones = [
@@ -116,7 +122,7 @@ const preguntas = [
       </div>
       <div class="nav-actions">
         <a href="#donar" class="btn btn-donate btn-sm" title="Apoya el proyecto">☕ Donar</a>
-        <a id="navDownload" href={RELEASES_URL} class="btn btn-primary btn-sm">Descargar</a>
+        <a id="navDownload" href={APK_URL} download="souphra.apk" class="btn btn-primary btn-sm">Descargar</a>
       </div>
     </div>
   </nav>
@@ -137,7 +143,7 @@ const preguntas = [
             Una app <strong style="color:#fff">gratuita, privada y sin anuncios</strong>.
           </p>
           <div style="margin-top:34px; display:flex; flex-wrap:wrap; gap:12px">
-            <a id="heroDownload" href={RELEASES_URL} class="btn btn-primary">
+            <a id="heroDownload" href={APK_URL} download="souphra.apk" class="btn btn-primary">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M12 15l-4-4M12 15l4-4M2 17l.06 1.2a1.5 1.5 0 0 0 1.44 1.4H20a1.5 1.5 0 0 0 1.5-1.5V17"/></svg>
               Descargar para Android
             </a>
@@ -302,7 +308,7 @@ const preguntas = [
               </div>
             </div>
             <div style="display:flex; flex-direction:column; gap:12px; width:100%; max-width:300px">
-              <a id="dlPrimary" href={RELEASES_URL} class="btn btn-primary" style="justify-content:center">
+              <a id="dlPrimary" href={APK_URL} download="souphra.apk" class="btn btn-primary" style="justify-content:center">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5l7.5-1v7H3v-6zm0 13v-6h7.5v7L3 18.5zm8.5 1.2v-7.2H21v8.5l-9.5-1.3zm0-15.4L21 3v8.5h-9.5V4.3z"/></svg>
                 Descargar para Android
               </a>
@@ -311,6 +317,7 @@ const preguntas = [
                 Windows <span style="opacity:.6; font-weight:600">· próximamente</span>
               </a>
               <a href={RELEASES_ALL} style="text-align:center; font-size:14px; color:var(--muted); text-decoration:none">Ver todas las versiones →</a>
+              <a id="dlMirror" href={APK_MIRROR} style="text-align:center; font-size:13px; color:var(--text-dim); text-decoration:none">¿No descarga en tu celular? Prueba el espejo en GitHub →</a>
             </div>
           </div>
         </div>
@@ -668,12 +675,11 @@ const preguntas = [
           var notas = renderNotas(j.body);
           if (notas) el('newsBody').innerHTML = notas;
 
-          var url = apk ? apk.browser_download_url : j.html_url;
-          if (url) {
-            el('dlPrimary').href = url;
-            el('heroDownload').href = url;
-            el('navDownload').href = url;
-          }
+          // Android download stays on the same-origin Pages file (APK_URL) — that link is set
+          // statically and deliberately NOT swapped for the GitHub asset URL, which mobile
+          // Chrome often fails to finish. The release asset remains available as a mirror.
+          var mirror = el('dlMirror');
+          if (mirror && apk) mirror.href = apk.browser_download_url;
           if (msi) el('dlWindowsCard').href = msi.browser_download_url;
         })
         .catch(function () {
